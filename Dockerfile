@@ -1,8 +1,5 @@
 FROM node:lts
 
-# Setup
-RUN mkdir -p ~/.kube
-
 # Install Dependencies
 RUN apt-get -y -qq update
 RUN apt-get install -y curl python-pip python-dev build-essential apt-transport-https
@@ -10,18 +7,11 @@ RUN apt-get install -y curl python-pip python-dev build-essential apt-transport-
 # Install AWS CLI
 RUN pip install awscli --upgrade
 
-# Install supervisord
-RUN apt-get install -y supervisor
-
-# Install Kubernetes
+# Install Kubernetes CLI
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 RUN echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN apt-get -y -qq update
 RUN apt-get install -y kubectl
-
-# Install Kops
-RUN curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
-RUN chmod +x kops-linux-amd64
-RUN mv kops-linux-amd64 /usr/local/bin/kops
 
 # Install eksctl
 RUN curl --silent --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
