@@ -9,7 +9,7 @@ RUN pip install awscli --upgrade
 # Install Kubernetes CLI
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 RUN chmod +x ./kubectl
-RUN sudo mv ./kubectl /usr/local/bin/kubectl
+RUN mv ./kubectl /usr/local/bin/kubectl
 
 # Install eksctl
 RUN curl --location "https://github.com/weaveworks/eksctl/releases/download/latest_release/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
