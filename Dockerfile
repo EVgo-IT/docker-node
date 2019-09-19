@@ -20,9 +20,5 @@ RUN curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/
 RUN chmod +x ./aws-iam-authenticator
 RUN mv ./aws-iam-authenticator /usr/local/bin
 
-# Install Postgres
-USER postgres
-RUN /etc/init.d/postgresql start && psql --command "ALTER USER postgres PASSWORD 'postgres';"
-USER root
-RUN echo "host all  all    0.0.0.0/0  md5" >> /etc/postgresql/9.6/main/pg_hba.conf
+# Volume required for Postgres
 VOLUME /var/lib/postgresql/data
