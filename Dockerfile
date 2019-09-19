@@ -1,7 +1,7 @@
 FROM node:lts-alpine
 
 # Install Dependencies
-RUN apk add --no-cache py-pip postgresql curl openrc
+RUN apk add --no-cache py-pip curl openrc
 
 # Install AWS CLI
 RUN pip install awscli --upgrade
@@ -19,6 +19,3 @@ RUN mv /tmp/eksctl /usr/local/bin
 RUN curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.12.7/2019-03-27/bin/linux/amd64/aws-iam-authenticator
 RUN chmod +x ./aws-iam-authenticator
 RUN mv ./aws-iam-authenticator /usr/local/bin
-
-# Volume required for Postgres
-VOLUME /var/lib/postgresql/data
